@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Vendor admin | {% endblock %}
+
+{% block content %}
+    <h1 class="title">Manage your account - {{ vendor.name }}</h1>
+
+    <div class="box">
+        <h2 class="is-size-3 mb-4">My products</h2>
+
+        <a href="{% url 'add_product' %}" class="button is-dark mb-6">Add product</a>
+
+        {% if products %}
+            <table class="table is-fullwidth">
+                <thead>
+                    <th>Name</th>
+                    <th>Price</th>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                        <tr>
+                            <td><a href="{% url 'product' product.category.slug product.slug %}">{{ product.title }}</a></td>
+                            <td>{{ product.price }}RON</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>You don't have any products</p>
+        {% endif %}
+    </div>
+{% endblock %}
