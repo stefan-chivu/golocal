@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -78,3 +78,27 @@ def add_product(request):
         form = ProductForm()
 
     return render(request, 'vendor/add_product.html', {'form': form})
+
+@login_required
+def edit_vendor(request):
+    vendor = request.user.vendor
+
+    if request.method == 'POST':
+        name = request.POST.get('name', '')
+        email = request.POST.get('email', '')
+
+        if name:
+            vendor.created_by.email = email
+            vendor.created_by.save()
+
+            vendor.name = name
+            vendor.save()
+
+            return redirect('vendor_admin')
+
+    return render(request, 'vendor/edit_vendor.html', {'vendor':vendor})
+
+def vendor(request, vendor_id):
+    vendor = get_object_or_404(Vendor, pk=vendor_id)
+
+    return render(request, 'vendor/vendor.html', {'vendor': vendor})

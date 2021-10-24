@@ -24,7 +24,8 @@
                 <p>{{ product.description }}</p>
 
                 <hr>
-                <h1 class="is-size-6 tag is-dark">Vandut de:  {{ product.vendor.name }}</h1>
+                <h1 class="is-size-6 tag">Vandut de: </h1>
+                <a href="{% url 'vendor' product.vendor.id %}" class="is-size-6 tag is-dark">{{ product.vendor.name }}</a>
             </div>
             <div class="column is-12">
                 <form method="post" action=".">
