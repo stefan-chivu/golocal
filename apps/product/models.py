@@ -28,7 +28,7 @@ class Product(models.Model):
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     date_added = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to='uploads/', blank=True, null=True)
+    image = models.ImageField(upload_to='uploads/', default='default.jpg')
     thumbnail = models.ImageField(upload_to='uploads/', blank=True, null=True)
 
     class Meta:

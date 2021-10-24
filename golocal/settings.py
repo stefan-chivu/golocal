@@ -31,6 +31,9 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'frontpage'
 LOGOUT_REDIRECT_URL = 'frontpage'
 
+SESSION_COOKIE_AGE = 86400
+CART_SESSION_ID = 'cart'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,9 +43,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.cart',
     'apps.core',
     'apps.vendor',
     'apps.product',
+    'apps.order',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +75,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'apps.product.context_processors.menu_categories',
+                'apps.cart.context_processors.cart'
             ],
         },
     },
@@ -136,3 +143,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
+
+STRIPE_PUB_KEY = 'pk_test_51JniR8KwORte8SQ9NNeUG4DeRjDXa5lR9szPE5mhg7E4t58HwERV0hKrYDsINfAtJzsAfglt14vP5idNqDfnbveF00DzNsBM2T'
+STRIPE_SECRET_KEY = 'sk_test_51JniR8KwORte8SQ9ptZpnMfLgFUT4rIPorhhM86b1Kl41OnR82xSud3DnjBDB5QDVLVWBjuqmvDtXypWB2A5MjNa00SM2IlWHB'

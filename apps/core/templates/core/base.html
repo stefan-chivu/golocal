@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-widt , initial-scale=1">
+        <meta name="viewport" content="width=device-width , initial-scale=1">
 
         <title>{% block title %}{% endblock %}GoLocal</title>
 
@@ -54,6 +54,8 @@
                 </div>
                 <div class="navbar-end">
                     {% if request.user.is_authenticated %}
+                    {% comment %} TODO - adaugat font-awesome {% endcomment %}
+                    <a href="{% url 'cart' %}" class="navbar-item"> Cosul meu {% if cart %} ({{ cart|length }}){% endif %}</a>
                     <a href="{% url 'vendor_admin' %}" class="navbar-item">{{ user.username }}</a>
                     <a href="{% url 'logout' %}" class="navbar-item">Logout</a>
                     {% else %}
@@ -75,5 +77,8 @@
             <a href="{% url 'become_vendor' %}">Become vendor</a>
             {% endif %}
         </footer>
+
+        {% block scripts %}
+        {% endblock %}
     </body>
 </html>

@@ -1,0 +1,63 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Cosul meu | {% endblock %}
+
+{% block content %}
+    <h1 class="title">Cosul meu</h1>
+
+    {% if cart %}
+        <div class="box mb-6">
+            <div class="table">
+                <table class="table is-fullwidth is-striped">
+                    <thead>
+                        <th></th>
+                        <th>Produs</th>
+                        <th>Cantitate</th>
+                        <th>Pret</th>
+                        <th></th>
+                    </thead>
+
+                    <tbody>
+                        {% for item in cart %}
+                            <tr>
+                                <td>
+                                    <figure class="image is-64x64">
+                                        <img src="{{ item.product.get_thumbnail }}">
+                                    </figure>
+                                </td>
+                                <td>
+                                    <a href="{% url 'product' item.product.category.slug item.product.slug %}">{{ item.product.title }}</a>
+                                </td>
+                                <td>
+                                    {{ item.quantity }}
+
+                                    <a href="?change_quantity={{ item.id }}&quantity=-1">-</a>
+                                    <a href="?change_quantity={{ item.id }}&quantity=1">+</a>
+                                </td>
+                                <td>{{ item.total_price }}RON</td>
+                                <td><a href="?remove_from_cart={{ item.id }}" class="delete">Sterge</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td><strong>Total</strong></td>
+                            <td><strong>{{ cart|length}}</strong></td>
+                            <td colspan="2"><strong>{{ cart.get_total_cost }}RON</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <div class="has-text-centered">
+            <a class="button is-dark" href="{% url 'place_order' %}">Plaseaza comanda</a>
+        </div>
+
+    {% else %}
+        <p>Nu exista produse in cos</p>
+    {% endif %}
+{% endblock %}
+
