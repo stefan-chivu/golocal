@@ -9,7 +9,7 @@
         {% csrf_token %}
 
         <div class="field">
-            <label>Vendor name</label>
+            <label>Display name</label>
 
             <div class="control">
                 <input type="text" name="name" id="id_name" value="{{ vendor.name }}" class="input">
@@ -26,6 +26,37 @@
             </div>
         </div>
 
+        <div class="field">
+            <label>First Name</label>
+
+            <div class="control">
+                <input type="text" name="first_name" id="id_first_name" value="{{ vendor.created_by.first_name }}" class="input">
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Last Name</label>
+
+            <div class="control">
+                <input type="text" name="last_name" id="id_last_name" value="{{ vendor.created_by.last_name }}" class="input">
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Address</label>
+
+            <div class="control">
+                <input type="text" name="address" id="id_address" value="{{ vendor.address }}" class="input">
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Phone number</label>
+
+            <div class="control">
+                <input type="text" name="phoneNo" id="id_phoneNo" value="{{ vendor.phoneNo }}" class="input">
+            </div>
+        </div>
         <div class="field">
             <div class="control">
                 <button class="button is-dark is-uppercase">Save changes</button>

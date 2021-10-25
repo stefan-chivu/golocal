@@ -86,12 +86,20 @@ def edit_vendor(request):
     if request.method == 'POST':
         name = request.POST.get('name', '')
         email = request.POST.get('email', '')
+        first_name = request.POST.get('first_name', '')
+        last_name = request.POST.get('last_name', '')
+        address = request.POST.get('address', '')
+        phoneNo = request.POST.get('phoneNo', '')
 
         if name:
             vendor.created_by.email = email
+            vendor.created_by.first_name = first_name
+            vendor.created_by.last_name = last_name
             vendor.created_by.save()
 
+            vendor.address = address
             vendor.name = name
+            vendor.phoneNo = phoneNo
             vendor.save()
 
             return redirect('vendor_admin')
