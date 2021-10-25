@@ -18,6 +18,7 @@ class RegistrationForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=False, label='Prenume')
     last_name = forms.CharField(max_length=30, required=False, label='Nume')
     phoneNo = PhoneNumberField()
+    phoneNo.error_messages['exists'] = 'An username already has this phone number'
     address = forms. CharField(max_length=150, required=False, label='Adresa')
 
     class Meta:
@@ -32,6 +33,11 @@ class RegistrationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+    
+    def clean_phone(self):
+        if Vendor.objects.filter(phoneNo=self.cleaned_data['phoneNo']).exists():
+            raise ValidationError(self.fields['phoneNo'].error_messages['exists'])
+        return self.cleaned_data['phoneNo']
 
     def clean_email(self):
         if User.objects.filter(email=self.cleaned_data['email']).exists():

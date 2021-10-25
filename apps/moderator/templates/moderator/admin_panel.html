@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+
+{% block title %}ADMIN | {% endblock %}
+
+{% block content %}
+    <div class="columns is-multiline">
+        <div class="column is-12">
+            <h1 class="title">ADMIN - GoLocal</h1>
+        </div>
+        <div class="column is-2">
+            <a href="{% url 'manage_categories' %}" class="button is-dark">Manage categories</a>
+        </div>
+
+        <div class="column is-2">
+            <a href="{% url 'manage_products' %}" class="button is-dark">Manage products</a>
+        </div>
+
+        <div class="column is-2">
+            <a href="{% url 'manage_vendors' %}" class="button is-dark">Manage vendors</a>
+        </div>
+    </div>
+{% endblock %}

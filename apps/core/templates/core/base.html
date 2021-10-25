@@ -28,7 +28,12 @@
         
             <div class="navbar-menu" id="main-navbar">
                 <div class="navbar-start">
-                    <a href="{% url 'contact' %}" class="navbar-item">Contact</a>
+                    {% if request.user.is_authenticated %}
+                        {% if request.user.is_staff %}
+                            <a href="{% url 'moderator' %}" class="navbar-item">ADMIN</a>
+                            <a href="{% url 'contact' %}" class="navbar-item">Contact</a>
+                        {% endif %}
+                    {% endif %}
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link">
                             Browse

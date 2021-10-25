@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+
+{% block title %}ADMIN | {% endblock %}
+
+{% block content %}
+    <h1 class="title">Manage categories</h1>
+    <div class="box">
+        <h2 class="is-size-3 mb-4">Categories</h2>
+            {% if categories %}
+            <table class="table is-fullwidth">
+                <thead>
+                    <th>Name</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    {% for category in categories %}
+                        <tr>
+                            <td><a href="{% url 'category' category.slug %}">{{ category.title }}</a></td>
+                            <td><a href="{% url 'delete_category' category.id %}" class="button is-danger">Delete</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No categories exist</p>
+        {% endif %}
+
+        <a href="{% url 'add_category' %}" class="button is-dark">Add category</a>
+    </div>
+{% endblock %}

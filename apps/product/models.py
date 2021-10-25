@@ -10,8 +10,8 @@ from apps.vendor.models import Vendor
 
 
 class Category(models.Model):
-    title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255)
+    title = models.CharField(max_length=255, unique=True, null=False, blank=False)
+    slug = models.SlugField(max_length=255, unique=True, null=False, blank=False)
     ordering = models.IntegerField(default=0)
 
     class Meta:

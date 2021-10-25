@@ -24,8 +24,8 @@ def become_vendor(request):
 
             login(request, user)
 
-            address = form.cleaned_data["address"]
-            phoneNo = form.cleaned_data["phoneNo"]
+            address = form.cleaned_data['email']
+            phoneNo = form.cleaned_data['phoneNo']
 
             vendor = Vendor.objects.create(name=user.username, created_by=user, address=address, phoneNo=phoneNo)
 

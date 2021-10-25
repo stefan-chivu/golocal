@@ -9,7 +9,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 class Vendor(models.Model):
     name = models.CharField(max_length=80)
     address = models.CharField(max_length=150, default="")
-    phoneNo = PhoneNumberField(null=False, blank=False, unique=True)
+    phoneNo = PhoneNumberField()
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.OneToOneField(User, related_name='vendor', on_delete=models.CASCADE)
 

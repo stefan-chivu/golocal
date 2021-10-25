@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+
+{% block title %}ADMIN | {% endblock %}
+
+{% block content %}
+    <h1 class="title">Manage Vendors</h1>
+    <div class="box">
+        <h2 class="is-size-3 mb-4">Vendors</h2>
+            {% if vendors %}
+            <div style="max-height: 600px; overflow: scroll;">
+                <table class="table is-fullwidth">
+                    <thead>
+                        <th>Name</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        {% for vendor in vendors %}
+                            {% if not vendor.created_by.is_staff %}
+                                <tr>
+                                    <td><a href="{% url 'vendor' vendor.id %}">{{ vendor.name }}</a></td>
+                                    <td><a href="{% url 'delete_vendor' vendor.id %}" class="button is-danger">Delete</a></td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>No products exist</p>
+        {% endif %}
+    </div>
+{% endblock %}
