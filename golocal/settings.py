@@ -150,4 +150,4 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 STRIPE_PUB_KEY = 'pk_test_51JniR8KwORte8SQ9NNeUG4DeRjDXa5lR9szPE5mhg7E4t58HwERV0hKrYDsINfAtJzsAfglt14vP5idNqDfnbveF00DzNsBM2T'
 STRIPE_SECRET_KEY = 'sk_test_51JniR8KwORte8SQ9ptZpnMfLgFUT4rIPorhhM86b1Kl41OnR82xSud3DnjBDB5QDVLVWBjuqmvDtXypWB2A5MjNa00SM2IlWHB'
 
-ALLOWED_HOSTS=['ec2-18-224-172-190.us-east-2.compute.amazonaws.com']
+ALLOWED_HOSTS=['ec2-18-224-172-190.us-east-2.compute.amazonaws.com', '127.0.0.1']
