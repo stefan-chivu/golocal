@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.contrib.admin.views.decorators import staff_member_required
@@ -61,3 +62,24 @@ def add_category(request):
     else:
         form = AddCategoryForm()
     return render(request, 'moderator/add_category.html', {'form': form})
+
+@login_required
+def manage_orders(request):
+    vendor = request.user.vendor
+    #products = vendor.products.all()
+    orders = vendor.orders.all()
+
+    for order in orders:
+        order.vendor_ammount = 0
+        order.vendor_paid_amount = 0
+        order.fully_paid = True
+
+        for item in order.items.all():
+            if item.vendor == request.user.vendor or request.user.is_staff :
+                if item.vendor_paid:
+                    order.vendor_paid_amount += item.get_total_price()
+                else:
+                    order.vendor_amount += item.get_total_price()
+                    order.fully_paid = False
+
+    return render(request, 'moderator/manage_orders.html', {'vendor': vendor, 'orders': orders})

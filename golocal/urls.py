@@ -18,9 +18,10 @@ from django.urls import path
 from django.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.urls.conf import re_path
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),path('admin/', admin.site.urls),
     path('moderator/', include('apps.moderator.urls')),
     path('', include('apps.core.urls')),
     path('vendors/', include('apps.vendor.urls')),

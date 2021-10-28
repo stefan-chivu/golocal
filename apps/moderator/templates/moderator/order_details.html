@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Detalii comanda | {% endblock %}
+
+{% block content %}
+    <h1 class="title">Detalii comanda</h1>
+    <div class="box">
+        {% if order %}
+            <p>TODO: details</p>
+        {% endif %}
+        <a href="{% url 'add_category' %}" class="button is-dark">Add category</a>
+    </div>
+{% endblock %}
