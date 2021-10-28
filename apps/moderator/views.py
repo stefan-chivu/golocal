@@ -8,6 +8,7 @@ from apps.moderator.forms import AddCategoryForm
 
 from apps.product.models import Category, Product
 from apps.vendor.models import Vendor
+from apps.order.models import Order
 
 @staff_member_required
 def delete_category(request, category_id=None):
@@ -20,6 +21,12 @@ def delete_product(request, product_id=None):
     object = Product.objects.get(id=product_id)
     object.delete()
     return redirect('manage_products')
+
+@login_required
+def delete_order(request, order_id=None):
+    object = Order.objects.get(id=order_id)
+    object.delete()
+    return redirect('manage_orders')
 
 @staff_member_required
 def delete_vendor(request, vendor_id=None):
@@ -67,7 +74,10 @@ def add_category(request):
 def manage_orders(request):
     vendor = request.user.vendor
     #products = vendor.products.all()
-    orders = vendor.orders.all()
+    if request.user.is_staff:
+        orders = Order.objects.all()
+    else:
+        orders = vendor.orders.all()
 
     for order in orders:
         order.vendor_ammount = 0
@@ -75,7 +85,7 @@ def manage_orders(request):
         order.fully_paid = True
 
         for item in order.items.all():
-            if item.vendor == request.user.vendor or request.user.is_staff :
+            if item.vendor == request.user.vendor or request.user.is_staff:
                 if item.vendor_paid:
                     order.vendor_paid_amount += item.get_total_price()
                 else:

@@ -15,6 +15,7 @@
                     </div>
 
                     <div class="column is-12">
+                        <b>Placed by:</b> {{ order.client.name }}<br>
                         <b>Name:</b> {{ order.first_name }} {{ order.last_name }}<br>
                         <b>Address:</b> {{ order.address }}<br>
                         <b>Zip and place:</b> {{ order.zipcode }} {{ order.place }}<br>
@@ -34,18 +35,24 @@
 
                             <tbody>
                                 {% for item in order.items.all %}
-                                    {% if item.vendor == request.user.vendor %}
+                                    {% if item.vendor == request.user.vendor or request.user.is_staff %}
                                         <tr>
                                             <td>{{ item.product.title }}</td>
                                             <td>{{ item.product.price }}RON</td>
                                             <td>{{ item.quantity }}</td>
                                             <td>{{ item.vendor_paid|yesno:"Yes,No" }}</td>
-                                            <td>${{ item.get_total_price }}</td>
+                                            <td>{{ item.get_total_price }}RON</td>
                                         </tr>
                                     {% endif %}
                                 {% endfor %}
                             </tbody>
                         </table>
+
+                        {% if request.user.is_staff %}
+                        <div class="has-text-centered">
+                            <a href="{% url 'delete_order' order.id %}" class="button is-danger">Delete</a>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
