@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Edit category | {% endblock %}
+
+{% block content %}
+    <h1 class="title">Edit category</h1>
+
+    <form method="post" action=".">
+        {% csrf_token %}
+
+        <div class="field">
+            <label>Title</label>
+            <div class="control">
+                <input type="text" name="title" id="id_title" value="{{ category.title }}" class="input">
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <button class="button is-dark is-uppercase">Save</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

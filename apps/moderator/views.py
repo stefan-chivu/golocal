@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.admin.views.decorators import staff_member_required
 from slugify import slugify
 
@@ -15,6 +15,22 @@ def delete_category(request, category_id=None):
     object = Category.objects.get(id=category_id)
     object.delete()
     return redirect('manage_categories')
+
+@staff_member_required
+def edit_category(request, category_slug):
+    category = get_object_or_404(Category, slug=category_slug)
+
+    if request.method == 'POST':
+        title = request.POST.get('title', '')
+
+        if title:
+            category.title = title
+            category.slug = slugify(title)
+            category.save()
+
+            return redirect('manage_categories')
+
+    return render(request, 'moderator/edit_category.html', {'category':category})
 
 @staff_member_required
 def delete_product(request, product_id=None):
