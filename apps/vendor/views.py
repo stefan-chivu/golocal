@@ -65,12 +65,6 @@ def add_product(request):
             product = form.save(commit=False)
             product.vendor = request.user.vendor
             product.slug = slugify(product.title)
-            # if not product.image:
-            #     product.image = Image.open(requests.get('https://via.placeholder.com/400x300.jpg', stream=True).raw)
-            #     product.image.thumbnail((220, 130), Image.ANTIALIAS)
-            #     thumb_io = BytesIO()
-            #     product.image.save(thumb_io, product.image.format, quality=60)
-            #     product.image.image.save(product.image.filename, ContentFile(thumb_io.getvalue()), save=False)
             product.save()
 
             return redirect('vendor_admin')

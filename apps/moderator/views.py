@@ -7,6 +7,7 @@ from slugify import slugify
 from apps.moderator.forms import AddCategoryForm
 
 from apps.product.models import Category, Product
+from apps.vendor.forms import ProductForm
 from apps.vendor.models import Vendor
 from apps.order.models import Order
 
@@ -32,11 +33,42 @@ def edit_category(request, category_slug):
 
     return render(request, 'moderator/edit_category.html', {'category':category})
 
-@staff_member_required
+@login_required
+def edit_product(request, product_id):
+    product=get_object_or_404(Product, id=product_id)
+
+    if request.user.vendor == product.vendor or request.user.is_staff:
+
+        if request.method == 'POST':
+            form = ProductForm(request.POST, request.FILES, instance=product)
+
+            if form.is_valid():
+                product = form.save(commit=False)
+                product.slug = slugify(product.title)
+                product.save()
+
+                if request.user.vendor == product.vendor:
+                    return redirect('vendor_admin')
+                else:
+                    return redirect('manage_products')
+        else:
+            form = ProductForm(instance=product)
+
+        return render(request, 'moderator/edit_product.html', {'product': product, 'form': form, 'product_id': product_id})
+    else:
+        return render(request, 'core/access_denied.html')
+
+@login_required
 def delete_product(request, product_id=None):
     object = Product.objects.get(id=product_id)
-    object.delete()
-    return redirect('manage_products')
+    if request.user.is_staff or request.user.vendor == object.vendor:
+        object.delete()
+        if request.user.is_staff:
+            return redirect('manage_products')
+        else:
+            return redirect('vendor_admin')
+    else:
+        return render(request, 'core/access_denied.html')
 
 @login_required
 def delete_order(request, order_id=None):

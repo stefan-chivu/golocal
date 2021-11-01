@@ -3,6 +3,7 @@ from PIL import Image
 
 from django.core.files import File
 from django.db import models
+from ckeditor.fields import RichTextField
 
 from apps.vendor.models import Vendor
 
@@ -25,7 +26,7 @@ class Product(models.Model):
     vendor = models.ForeignKey(Vendor, related_name='products', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255)
-    description = models.TextField(blank=True, null=True)
+    description = RichTextField(max_length=255)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     date_added = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='uploads/', blank=True, null=True)

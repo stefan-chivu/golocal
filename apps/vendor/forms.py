@@ -3,12 +3,19 @@ from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.forms.models import ModelChoiceField
 from phonenumber_field.formfields import PhoneNumberField
 
-from apps.product.models import Product
+from apps.product.models import Category, Product
 from apps.vendor.models import Vendor
 
+from ckeditor.widgets import CKEditorWidget
+
 class ProductForm(ModelForm):
+    category = ModelChoiceField(queryset=Category.objects.all(), required=True, label="Categorie")
+    #image = forms.ImageField()
+    title = forms.CharField(max_length=50, required=True, label="Denumire")
+    description = forms.CharField(widget=CKEditorWidget(), max_length=500, required=False, label="Descriere")
     class Meta:
         model = Product
         fields = ['category', 'image', 'title', 'description', 'price']
