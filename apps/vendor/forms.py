@@ -24,7 +24,7 @@ class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True, label='Email', error_messages={'exists': 'An account with this email already exists'})
     first_name = forms.CharField(max_length=30, required=False, label='Prenume')
     last_name = forms.CharField(max_length=30, required=False, label='Nume')
-    phoneNo = PhoneNumberField()
+    phoneNo = PhoneNumberField(required=True, label="Nr. Telefon", error_messages={'exists': 'This phone number is in use'})
     phoneNo.error_messages['exists'] = 'An username already has this phone number'
     address = forms. CharField(max_length=150, required=False, label='Adresa')
 

@@ -21,8 +21,8 @@
                                     <td><a href="{% url 'category' category.slug %}" class="button is-dark is-fullwidth">{{ category.title }}</a></td>
                                     <td>
                                         <a href="{% url 'edit_category' category.slug %}" class="button is-info">Edit</a>
-                                        <a href="{% url 'delete_category' category.id %}" class="button is-danger">Delete</a
-                                    ></td>
+                                        <a href="{% url 'delete_category' category.id %}" class="button is-danger">Delete</a>
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
