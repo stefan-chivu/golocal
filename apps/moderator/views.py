@@ -70,7 +70,7 @@ def delete_product(request, product_id=None):
     else:
         return render(request, 'core/access_denied.html')
 
-@login_required
+@staff_member_required
 def delete_order(request, order_id=None):
     object = Order.objects.get(id=order_id)
     object.delete()
@@ -127,6 +127,8 @@ def manage_orders(request):
     else:
         orders = vendor.orders.all()
 
+    placed_orders = Order.objects.all().filter(client=request.user.vendor)
+
     for order in orders:
         order.vendor_ammount = 0
         order.vendor_paid_amount = 0
@@ -140,4 +142,4 @@ def manage_orders(request):
                     order.vendor_amount += item.get_total_price()
                     order.fully_paid = False
 
-    return render(request, 'moderator/manage_orders.html', {'vendor': vendor, 'orders': orders})
+    return render(request, 'moderator/manage_orders.html', {'vendor': vendor, 'orders': orders, 'placed_orders': placed_orders})

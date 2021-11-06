@@ -31,9 +31,9 @@
                     {% if request.user.is_authenticated %}
                         {% if request.user.is_staff %}
                             <a href="{% url 'moderator' %}" class="navbar-item">ADMIN</a>
-                            <a href="{% url 'contact' %}" class="navbar-item">Contact</a>
                         {% endif %}
                     {% endif %}
+                    <a href="{% url 'contact' %}" class="navbar-item">Contact</a>
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link">
                             Browse
@@ -71,12 +71,14 @@
         </nav>
         <section class="section">
             <div class="container">
+                <div class="box" style="background: white;">
                 {% block content %}
                 {% endblock %}
+                </div>
             </div>
         </section>
         <footer class="footer">
-            <h3 class="is-size-4 mb-4">GoLocal</h3>
+            <h3 class="is-size-4 mb-4">GoLocal &copy; 2021</h3>
 
             {% if request.user.is_anonymous %}
             <a href="{% url 'become_vendor' %}">Become vendor</a>

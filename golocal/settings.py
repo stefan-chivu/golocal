@@ -134,11 +134,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-# STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+#STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+STATIC_ROOT = "/var/www/golocal/static/"
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static'
-]
+CKEDITOR_BASEPATH = "/var/www/golocal/static/ckeditor/"
+#STATICFILES_DIRS = [
+#    /var/www/golocal/static
+#]
+# STATICFILES_DIRS = [
+#     BASE_DIR / 'static'
+# ]
+#STATIC_ROOT = os.path.join(BASE_DIR, '/home/schivu/workspace/django-projects/golocalenv/static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -151,4 +157,4 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 STRIPE_PUB_KEY = 'pk_test_51JniR8KwORte8SQ9NNeUG4DeRjDXa5lR9szPE5mhg7E4t58HwERV0hKrYDsINfAtJzsAfglt14vP5idNqDfnbveF00DzNsBM2T'
 STRIPE_SECRET_KEY = 'sk_test_51JniR8KwORte8SQ9ptZpnMfLgFUT4rIPorhhM86b1Kl41OnR82xSud3DnjBDB5QDVLVWBjuqmvDtXypWB2A5MjNa00SM2IlWHB'
 
-ALLOWED_HOSTS=['ec2-18-224-172-190.us-east-2.compute.amazonaws.com', '127.0.0.1']
+ALLOWED_HOSTS=['92.87.91.222', '127.0.0.1']

@@ -39,7 +39,9 @@
                 <hr>
                 <h1 class="is-size-6 tag">Vandut de: </h1>
                 <a href="{% url 'vendor' product.vendor.id %}" class="is-size-6 tag is-dark">{{ product.vendor.name }}</a>
+                {% if request.user.vendor == product.vendor or request.user.is_staff %}
                 <a href="{% url 'edit_product' product.id %}" class="is-size-6 tag is-info">Edit</a>
+                {% endif %}
             </div>
             <div class="column is-12">
                 <form method="post" action=".">

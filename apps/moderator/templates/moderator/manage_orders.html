@@ -1,10 +1,16 @@
 {% extends 'core/base.html' %}
 
-{% block title %}Detalii comanda | {% endblock %}
+{% block title %}Manage orders | {% endblock %}
 
 {% block content %}
 <div class="box">
-    <h2 class="is-size-3 mb-4">Manage orders</h2>
+    <div class="has-text-centered">
+    {% if request.user.is_staff %}
+        <h2 class="is-size-3 mb-4">Manage orders</h2>
+    {% else %}
+        <h2 class="is-size-3 mb-4">Received orders</h2>
+    {% endif %}
+    </div>
 
     {% if orders %}
         {% for order in orders %}
@@ -57,6 +63,75 @@
                 </div>
             </div>
         {% endfor %}
+    {% else %}
+        <div class="has-text-centered">
+            <h2>You have not received any orders</h2>
+        </div>
     {% endif %}
 </div> 
+
+{% if not request.user.is_staff %}
+<div class=box>
+    <div class="has-text-centered">
+        <h2 class="is-size-3 mb-4">Placed orders</h2>
+    </div>
+    {% if placed_orders %}
+    {% for placed_order in placed_orders %}
+        <div class="{% if order.fully_paid %}has-background-success-light{% else %}has-background-info-light{% endif %} mb-2 p-4">
+            <div class="columns is-multiline">
+                <div class="column is-6">
+                    <h3 class="is-size-4">#{{ placed_order.id }} - {{ placed_order.first_name }} {{ placed_order.last_name }}</h3>
+                </div>
+
+                <div class="column is-12">
+                    <b>Placed by:</b> {{ placed_order.client.name }}<br>
+                    <b>Name:</b> {{ placed_order.first_name }} {{ placed_order.last_name }}<br>
+                    <b>Address:</b> {{ placed_order.address }}<br>
+                    <b>Zip and place:</b> {{ placed_order.zipcode }}<br>
+                    <b>E-mail:</b> {{ placed_order.email }}<br>
+                    <b>Phone:</b> {{ placed_order.phone }}
+
+                    <table class="table is-fullwidth mt-4">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <!-- <th>Paid</th> -->
+                                <th>Total</th>
+                                <th>Vendor</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for item in placed_order.items.all %}
+                                    <tr>
+                                        <td>{{ item.product.title }}</td>
+                                        <td>{{ item.price }}RON</td>
+                                        <td>{{ item.quantity }}</td>
+                                        <!-- <td>{{ item.vendor_paid|yesno:"Yes,No" }}</td> -->
+                                        <td>{{ item.get_total_price }}RON</td>
+                                        <td>{{ item.vendor.name }}</td>
+                                    </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <b>TOTAL: {{ placed_order.total }}</b>
+                    {% if request.user.is_staff %}
+                    <div class="has-text-centered">
+                        <a href="{% url 'delete_order' order.id %}" class="button is-danger">Delete</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% else %}
+    <div class="has-text-centered">
+        <h2>You have not placed any orders</h2>
+    </div>
+    {% endif %}
+{% endif %}
+</div>
 {% endblock %}
