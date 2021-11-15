@@ -2,9 +2,11 @@
   
 <div class="column is-3 product-list-item">
     <div class="box" style="background: #E0E2DB;">
-        <figure class="image is-4by3 mb-4">
-            <img src="{{ product.get_thumbnail }}">
-        </figure>
+        <div style="border: 3px solid #444;" class="mb-4">
+            <figure class="image is-4by3">
+                <img src="{{ product.get_thumbnail }}">
+            </figure>
+        </div>
         
         <h2 class="subtitle">{{ product.title }}</h2>
         <h3 class="price is-size-6 mb-5">{{ product.price }}RON</h3>
@@ -12,6 +14,8 @@
         {% comment %} TODO: de adaugat mai multe categorii de pret (buc/kg/etc..) {% endcomment %}
         <hr>
 
-        <a href="{% url 'product' product.category.slug product.slug %}" class="button is-dark is-uppercase">Detalii</a>
+        <div class="has-text-centered">
+            <a href="{% url 'product' product.category.slug product.slug %}" class="button is-dark is-uppercase">Detalii</a>
+        </div>
     </div>
 </div>
